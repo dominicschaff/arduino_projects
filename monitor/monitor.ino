@@ -53,8 +53,10 @@ void loop() {
   
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.println("deg C: " + String(temp_min, 1) + " < " + String(temp.temperature, 1) + " < " + String(temp_max, 1));
-  display.println("% rH:  " + String(humidity_min, 1) + " < " + String(humidity.relative_humidity, 1) + " < " + String(humidity_max, 1));
+  display.println("Degrees C:");
+  display.println(String(temp_min, 1) + " < " + String(temp.temperature, 1) + " < " + String(temp_max, 1));
+  display.println("Relative Humidity");
+  display.println(String(humidity_min, 1) + " < " + String(humidity.relative_humidity, 1) + " < " + String(humidity_max, 1));
   display.display();
 
   delay(500);
