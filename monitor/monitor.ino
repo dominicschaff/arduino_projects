@@ -1,5 +1,6 @@
 #include <SPI.h>
 #include <Wire.h>
+#include <ArduinoLowPower.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_AHTX0.h>
@@ -29,6 +30,7 @@ void setup() {
     Serial.println("Could not find AHT? Check wiring");
     while (1) delay(10);
   }
+  display.dim(true);
 
   display.setTextColor(SSD1306_WHITE);
 
@@ -52,12 +54,13 @@ void loop() {
   humidity_max = max(humidity_max, humidity.relative_humidity);
   
   display.clearDisplay();
+  display.setTextSize(1);
   display.setCursor(0, 0);
-  display.println("Degrees C:");
-  display.println(String(temp_min, 1) + " < " + String(temp.temperature, 1) + " < " + String(temp_max, 1));
-  display.println("Relative Humidity");
-  display.println(String(humidity_min, 1) + " < " + String(humidity.relative_humidity, 1) + " < " + String(humidity_max, 1));
+  display.println(String(temp_min, 1) + " " + String(temp_max, 1) + " | " + String(humidity_min, 1) + " " + String(humidity_max, 1));
+  display.setTextSize(2);
+  display.setCursor(5, 15);
+  display.println(String(temp.temperature, 1) + "  " + String(humidity.relative_humidity, 1));
   display.display();
 
-  delay(500);
+  LowPower.deepSleep(5000);
 }
